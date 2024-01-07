@@ -24,7 +24,7 @@ custom_target(
 subdir('embedded')
 subdir('extension-c')
 
-if build_lua51_loader == true
+if build_lua53_loader == true
   subdir('extension-lua')
 endif
 

@@ -1,4 +1,4 @@
-if build_lua51_loader == true
+if build_lua53_loader == true
   subdir('lua5.1')
 endif
 

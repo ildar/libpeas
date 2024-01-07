@@ -1,6 +1,6 @@
 subdir('helloworld')
 
-if build_lua51_loader == true
+if build_lua53_loader == true
   subdir('luahello')
 endif
 

@@ -31,16 +31,16 @@
 #include "peas-utils.h"
 
 static const gchar *all_plugin_loaders[] = {
-  "c", "lua5.1", "python", "python3"
+  "c", "lua5.3", "python", "python3"
 };
 
 static const gchar *all_plugin_loader_modules[] = {
-  "cloader", "lua51loader", "pythonloader", "python3loader"
+  "cloader", "lua53loader", "pythonloader", "python3loader"
 };
 
 static const gint conflicting_plugin_loaders[PEAS_UTILS_N_LOADERS][2] = {
   { -1, -1 }, /* c       => {}          */
-  { -1, -1 }, /* lua5.1  => {}          */
+  { -1, -1 }, /* lua5.3  => {}          */
   {  3, -1 }, /* python  => { python3 } */
   {  2, -1 }  /* python3 => { python  } */
 };

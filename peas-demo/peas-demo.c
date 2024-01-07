@@ -148,7 +148,7 @@ main (int    argc,
 
   /* We don't care about leaking memory */
   g_setenv ("PEAS_ALLOW_ALL_LOADERS", "1", TRUE);
-  peas_engine_enable_loader (engine, "lua5.1");
+  peas_engine_enable_loader (engine, "lua5.3");
   peas_engine_enable_loader (engine, "python3");
 
   if (run_from_build_dir)

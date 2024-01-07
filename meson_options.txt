@@ -1,6 +1,6 @@
-option('lua51',
+option('lua53',
        type: 'boolean', value: true,
-       description: 'Enable Lua 5.1 support (requires lua-lgi)')
+       description: 'Enable Lua 5.3 support (requires lua-lgi)')
 
 option('python2',
        type: 'boolean', value: false,

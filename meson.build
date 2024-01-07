@@ -95,7 +95,7 @@ gtk_doc_req = '>= 1.11'
 python2_req = '>= 2.5.2'
 python3_req = '>= 3.2.0'
 pygobject_req = '>= 3.2.0'
-lua_req = '>= 5.1.0'
+lua_req = '>= 5.3.0'
 lua_lgi_req = '>= 0.9.0'
 luajit_req = '>= 2.0'
 
@@ -137,16 +137,16 @@ if host_machine.system() == 'windows' and not python2_dep.found()
 endif
 
 pygobject_dep = dependency('pygobject-3.0', version: pygobject_req, required: false)
-lua51_dep = dependency('lua51', version: lua_req, required: false)
-if not lua51_dep.found()
-  lua51_dep = dependency('lua-5.1', version: lua_req, required: false)
+lua53_dep = dependency('lua53', version: lua_req, required: false)
+if not lua53_dep.found()
+  lua53_dep = dependency('lua-5.3', version: lua_req, required: false)
 endif
 luajit_dep = dependency('luajit', version: luajit_req, required: false)
 lua_lgi_found = false
 lua_lgi_ver = 'not found'
-lua51_prg = find_program('lua5.1', required: false)
-if not lua51_prg.found()
-  lua51_prg = find_program('lua51', required: false)
+lua53_prg = find_program('lua5.3', required: false)
+if not lua53_prg.found()
+  lua53_prg = find_program('lua53', required: false)
 endif
 luajit_prg = find_program('luajit', required: false)
 xmllint_prg = find_program('xmllint', required: false)
@@ -167,12 +167,12 @@ if cc.get_id() == 'msvc'
     endif
     if lua51_prg.found()
       if lua != 'lua'
-        lua51_dep = cc.find_library(lua, has_headers: lua_headers, required: false)
+        lua53_dep = cc.find_library(lua, has_headers: lua_headers, required: false)
       endif
     endif
   endforeach
 
-  if not lua51_dep.found() and not luajit_dep.found()
+  if not lua53_dep.found() and not luajit_dep.found()
     foreach lualib: lua_names
       if luajit_prg.found()
         if not luajit_dep.found()
@@ -181,8 +181,8 @@ if cc.get_id() == 'msvc'
       endif
 
       if lua51_prg.found()
-        if not lua51_dep.found()
-          lua51_dep = cc.find_library(lualib, has_headers: lua_headers, required: false)
+        if not lua53_dep.found()
+          lua53_dep = cc.find_library(lualib, has_headers: lua_headers, required: false)
         endif
       endif
     endforeach
@@ -191,7 +191,7 @@ endif
 
 lua_found = false
 
-if (luajit_dep.found() and luajit_prg.found()) or (lua51_dep.found() and lua51_prg.found())
+if (luajit_dep.found() and luajit_prg.found()) or (lua53_dep.found() and lua53_prg.found())
   lua_found = true
 endif
 
@@ -199,13 +199,13 @@ if lua_found
     if luajit_prg.found()
         lua_prg = luajit_prg
     else
-        lua_prg = lua51_prg
+        lua_prg = lua53_prg
     endif
     lua_lgi_check = run_command(lua_prg, ['-e', 'print(require("lgi")._VERSION)'])
     if lua_lgi_check.returncode() == 0
         lua_lgi_ver = lua_lgi_check.stdout().strip()
         if lua_lgi_ver.version_compare(lua_lgi_req)
-            lua51_lgi_dep = declare_dependency(version: lua_lgi_ver)
+            lua53_lgi_dep = declare_dependency(version: lua_lgi_ver)
             lua_lgi_found = true
         endif
     endif
@@ -283,10 +283,10 @@ if generate_gir and not introspection_dep.found()
   generate_gir = false
 endif
 
-build_lua51_loader = get_option('lua51')
-lua51_found = (luajit_dep.found() or lua51_dep.found()) and lua_lgi_found
-if build_lua51_loader and not lua51_found
-  build_lua51_loader = false
+build_lua53_loader = get_option('lua53')
+lua53_found = (luajit_dep.found() or lua53_dep.found()) and lua_lgi_found
+if build_lua53_loader and not lua53_found
+  build_lua53_loader = false
 endif
 
 build_python2_loader = get_option('python2')
@@ -335,7 +335,7 @@ summary = [
   '     Glade catalog: @0@'.format(install_glade_catalog),
   '     GTK+ widgetry: @0@'.format(build_gtk_widgetry),
   '     Introspection: @0@'.format(generate_gir),
-  '   Lua 5.1 support: @0@'.format(build_lua51_loader),
+  '   Lua 5.3 support: @0@'.format(build_lua53_loader),
   '  Python 2 support: @0@'.format(build_python2_loader),
   '  Python 3 support: @0@'.format(build_python3_loader),
   '',

@@ -196,7 +196,7 @@ peas_lua_utils_load_resource (lua_State   *L,
    *
    * https://bugzilla.gnome.org/show_bug.cgi?id=673101
    */
-  resource_path = g_strconcat ("/org/gnome/libpeas/loaders/lua5.1/",
+  resource_path = g_strconcat ("/org/gnome/libpeas/loaders/lua5.3/",
                                name, NULL);
   lua_resource = g_resources_lookup_data (resource_path,
                                           G_RESOURCE_LOOKUP_FLAGS_NONE,
